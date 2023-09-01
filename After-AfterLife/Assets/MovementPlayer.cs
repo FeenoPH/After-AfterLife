@@ -7,15 +7,10 @@ using UnityEngine;
 public class MovementPlayer : MonoBehaviour
 {
     public float maxSpeed = 10f;
-    public float maxUpward = 10f;
     public Rigidbody2D rb;
     public float acceleration = 20f;
-    public float upward_acceleration = 20f;
-    public float downward_acceleration = 20f;
     public float deceleration = 50f;
-    private float jumpSpeed = 0f;
     private float currentSpeed = 0f;
-    private bool IsPeak = false;
 
     void Update()
     {
@@ -30,24 +25,7 @@ public class MovementPlayer : MonoBehaviour
 
         // Apply the calculated speed to the rigidbody's velocity
         rb.velocity = new Vector2(currentSpeed, rb.velocity.y);
+    }
 
-        if (Input.GetButton("Jump") == true && IsPeak == false)
-        {
-            jumpSpeed += upward_acceleration * Time.deltaTime;
-            rb.velocity = new Vector2(currentSpeed, jumpSpeed);
-            if (jumpSpeed >= maxUpward)
-            {
-                IsPeak = true;
-                jumpSpeed -= downward_acceleration * Time.deltaTime; 
-            }
-        }
-    }
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.tag == "ground")
-        {
-            IsPeak = false;
-            jumpSpeed = 0f;
-        }
-    }
+    
 }
