@@ -23,7 +23,7 @@ public class PlantInteract : MonoBehaviour
     {
         if (touching_plant == true && Input.GetKeyDown(KeyCode.Space) == true)
         {
-            
+            Debug.Log("Plant Taken");
         }
     }
 }

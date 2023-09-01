@@ -11,6 +11,8 @@ public class MovementPlayer : MonoBehaviour
     public float acceleration = 20f;
     public float deceleration = 50f;
     private float currentSpeed = 0f;
+    private bool Touching_ground = false;
+    public float jump;
 
     void Update()
     {
@@ -25,7 +27,27 @@ public class MovementPlayer : MonoBehaviour
 
         // Apply the calculated speed to the rigidbody's velocity
         rb.velocity = new Vector2(currentSpeed, rb.velocity.y);
+
+        if (Touching_ground == true && Input.GetButtonDown("Jump") == true)
+        {
+            rb.AddForce(Vector2.up * jump);
+        }
+        
+    }
+    void OnCollisionEnter2D(Collision2D collider)
+    {
+        if (collider.gameObject.CompareTag("Ground"))
+        {
+            Touching_ground = true;
+        }
+    }
+    void OnCollisionExit2D(Collision2D collider)
+    {
+        if (collider.gameObject.CompareTag("Ground"))
+        {
+            Touching_ground = false;
+        }
     }
 
-    
+
 }
